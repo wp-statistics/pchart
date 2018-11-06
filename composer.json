@@ -1,0 +1,14 @@
+{
+    "name": "wp-statistics/pchart",
+    "description": "A PHP Class to build Charts",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Mostafa Soufi",
+            "email": "mostafa.soufi@hotmail.com"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}
