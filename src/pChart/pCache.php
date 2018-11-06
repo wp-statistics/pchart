@@ -1,36 +1,4 @@
 <?php
-/*
-    pCache - Faster renderding using data cache
-    Copyright (C) 2008 Jean-Damien POGOLOTTI
-    Version  1.1.2 last updated on 06/17/08
-
-    http://pchart.sourceforge.net
-
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 1,2,3 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-    Class initialisation :
-     pCache($CacheFolder="Cache/")
-    Cache management :
-     IsInCache($Data)
-     GetFromCache($ID,$Data)
-     WriteToCache($ID,$Data,$Picture)
-     DeleteFromCache($ID,$Data)
-     ClearCache()
-    Inner functions :
-     GetHash($ID,$Data)
-*/
-
 namespace pChart;
 
 /* pCache class definition */
