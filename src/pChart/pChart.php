@@ -117,6 +117,7 @@ define("ALIGN_BOTTOM_CENTER", 8);
 define("ALIGN_BOTTOM_RIGHT", 9);
 
 /* pChart class definition */
+
 class pChart
 {
     /* Palettes definition */
@@ -293,7 +294,7 @@ class pChart
                 $buffer = fgets($handle, 4096);
                 $buffer = str_replace(chr(10), "", $buffer);
                 $buffer = str_replace(chr(13), "", $buffer);
-                $Values = split($Delimiter, $buffer);
+                $Values = explode($Delimiter, $buffer);
                 if (count($Values) == 3) {
                     $this->Palette[$ColorID]["R"] = $Values[0];
                     $this->Palette[$ColorID]["G"] = $Values[1];
@@ -1514,7 +1515,7 @@ class pChart
             $YPos2 = $LayerHeight - (($Value2 - $this->VMin) * $this->DivisionRatio);
 
             if ($LastXPos != -1) {
-                $Points = "";
+                $Points = array();
                 $Points[] = $LastXPos;
                 $Points[] = $LastYPos1;
                 $Points[] = $LastXPos;
@@ -1662,10 +1663,10 @@ class pChart
         $GraphID = 0;
         foreach ($DataDescription["Values"] as $Key2 => $ColName) {
             if ($SerieName == "" || $SerieName == $ColName) {
-                $XIn = "";
-                $Yin = "";
-                $Yt = "";
-                $U = "";
+                $XIn = array();
+                $Yin = array();
+                $Yt = array();
+                $U = array();
                 $XIn[0] = 0;
                 $YIn[0] = 0;
 
@@ -1679,7 +1680,7 @@ class pChart
 
                 $Index = 1;
                 $XLast = -1;
-                $Missing = "";
+                $Missing = array();
                 foreach ($Data as $Key => $Values) {
                     if (isset($Data[$Key][$ColName])) {
                         $Value = $Data[$Key][$ColName];
@@ -1768,10 +1769,10 @@ class pChart
 
         $GraphID = 0;
         foreach ($DataDescription["Values"] as $Key2 => $ColName) {
-            $XIn = "";
-            $Yin = "";
-            $Yt = "";
-            $U = "";
+            $XIn = array();
+            $Yin = array();
+            $Yt = array();
+            $U = array();
             $XIn[0] = 0;
             $YIn[0] = 0;
 
@@ -1785,7 +1786,7 @@ class pChart
 
             $Index = 1;
             $XLast = -1;
-            $Missing = "";
+            $Missing = array();
             foreach ($Data as $Key => $Values) {
                 $Value = $Data[$Key][$ColName];
                 $XIn[$Index] = $Index;
@@ -1815,7 +1816,7 @@ class pChart
             for ($k = $Index - 1; $k >= 1; $k--)
                 $Yt[$k] = $Yt[$k] * $Yt[$k + 1] + $U[$k];
 
-            $Points = "";
+            $Points = array();
             $Points[] = $this->GAreaXOffset;
             $Points[] = $LayerHeight;
 
@@ -1848,7 +1849,7 @@ class pChart
                 $YPos = $LayerHeight - (($Value - $this->VMin) * $this->DivisionRatio);
 
                 if ($YLast != NULL && $AroundZero && !isset($Missing[floor($X)]) && !isset($Missing[floor($X + 1)])) {
-                    $aPoints = "";
+                    $aPoints = array();
                     $aPoints[] = $XLast;
                     $aPoints[] = $YLast;
                     $aPoints[] = $XPos;
@@ -1883,7 +1884,7 @@ class pChart
                 $YPos = $LayerHeight - (($YIn[$Index] - $this->VMin) * $this->DivisionRatio);
 
                 if ($YLast != NULL && $AroundZero) {
-                    $aPoints = "";
+                    $aPoints = array();
                     $aPoints[] = $XLast;
                     $aPoints[] = $YLast;
                     $aPoints[] = $LayerWidth - $this->GAreaXOffset;
@@ -1943,7 +1944,7 @@ class pChart
                 $ID++;
             }
 
-            $aPoints = "";
+            $aPoints = array();
             $aPoints[] = $this->GAreaXOffset;
             $aPoints[] = $LayerHeight;
 
@@ -1989,7 +1990,7 @@ class pChart
                     }
 
                     if ($YLast <> $Empty && $AroundZero) {
-                        $Points = "";
+                        $Points = array();
                         $Points[] = $XLast;
                         $Points[] = $YLast;
                         $Points[] = $XPos;
@@ -2164,7 +2165,7 @@ class pChart
         }
 
         $SerieID = 0;
-        $LastValue = "";
+        $LastValue = array();
         foreach ($DataDescription["Values"] as $Key2 => $ColName) {
             $ID = 0;
             foreach ($DataDescription["Description"] as $keyI => $ValueI) {
@@ -2301,7 +2302,7 @@ class pChart
                     $Y2 = sin($Angle * 3.1418 / 180) * ($TRadius + $RadiusScale) + $YCenter;
 
                     if ($t % 2 == 1 && $LastX1 != -1) {
-                        $Plots = "";
+                        $Plots = array();
                         $Plots[] = $X1;
                         $Plots[] = $Y1;
                         $Plots[] = $X2;
@@ -2498,7 +2499,7 @@ class pChart
 
             $Angle = -90;
             $XLast = -1;
-            $Plots = "";
+            $Plots = array();
             foreach ($Data as $Key => $Values) {
                 if (isset($Data[$Key][$ColName])) {
                     $Value = $Data[$Key][$ColName];
@@ -2573,7 +2574,7 @@ class pChart
 
         /* Calculate all polygons */
         $Angle = 0;
-        $TopPlots = "";
+        $TopPlots = array();
         foreach ($iValues as $Key => $Value) {
             $TopPlots[$Key][] = $XPos;
             $TopPlots[$Key][] = $YPos;
@@ -2690,7 +2691,7 @@ class pChart
 
         /* Calculate all polygons */
         $Angle = 0;
-        $TopPlots = "";
+        $TopPlots = array();
         foreach ($iValues as $Key => $Value) {
             $XOffset = cos(($Angle + ($Value / 2 * $SpliceRatio)) * 3.1418 / 180) * $SpliceDistance;
             $YOffset = sin(($Angle + ($Value / 2 * $SpliceRatio)) * 3.1418 / 180) * $SpliceDistance;
@@ -2708,8 +2709,8 @@ class pChart
                 $Bc = $this->Palette[$Key]["B"];
             }
 
-            $XLineLast = "";
-            $YLineLast = "";
+            $XLineLast = 0;
+            $YLineLast = 0;
 
             /* Process labels position & size */
             $Caption = "";
@@ -2748,8 +2749,8 @@ class pChart
             else
                 $LineColor = $this->AllocateColor($this->Picture, $Rc, $Gc, $Bc);
 
-            $XLineLast = "";
-            $YLineLast = "";
+            $XLineLast = 0;
+            $YLineLast = 0;
             for ($iAngle = $Angle; $iAngle <= $Angle + $Value * $SpliceRatio; $iAngle = $iAngle + .5) {
                 $PosX = cos($iAngle * 3.1418 / 180) * $Radius + $XPos + $XOffset;
                 $PosY = sin($iAngle * 3.1418 / 180) * $Radius + $YPos + $YOffset;
@@ -2831,10 +2832,10 @@ class pChart
         /* Calculate all polygons */
         $Angle = 0;
         $CDev = 5;
-        $TopPlots = "";
-        $BotPlots = "";
-        $aTopPlots = "";
-        $aBotPlots = "";
+        $TopPlots = array();
+        $BotPlots = array();
+        $aTopPlots = array();
+        $aBotPlots = array();
         foreach ($iValues as $Key => $Value) {
             $XCenterPos = cos(($Angle - $CDev + ($Value * $SpliceRatio + $SpliceDistanceRatio) / 2) * 3.1418 / 180) * $SpliceDistance + $XPos;
             $YCenterPos = sin(($Angle - $CDev + ($Value * $SpliceRatio + $SpliceDistanceRatio) / 2) * 3.1418 / 180) * $SpliceDistance + $YPos;
@@ -2930,7 +2931,7 @@ class pChart
         for ($i = $SpliceHeight - 1; $i >= 1; $i--) {
             foreach ($iValues as $Key => $Value) {
                 $C_GraphLo = $this->AllocateColor($this->Picture, $this->Palette[$Key]["R"], $this->Palette[$Key]["G"], $this->Palette[$Key]["B"], -10);
-                $Plots = "";
+                $Plots = array();
                 $Plot = 0;
                 foreach ($TopPlots[$Key] as $Key2 => $Value2) {
                     $Plot++;
@@ -3672,7 +3673,7 @@ class pChart
             $B = 255;
         }
 
-        $Plot = "";
+        $Plot = array();
         $Xi = floor($X);
         $Yi = floor($Y);
 

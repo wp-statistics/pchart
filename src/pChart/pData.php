@@ -47,6 +47,7 @@
 namespace pChart;
 
 /* pData class definition */
+
 class pData
 {
     var $Data;
@@ -54,8 +55,8 @@ class pData
 
     function pData()
     {
-        $this->Data = "";
-        $this->DataDescription = "";
+        $this->Data = array();
+        $this->DataDescription = array();
         $this->DataDescription["Position"] = "Name";
         $this->DataDescription["Format"]["X"] = "number";
         $this->DataDescription["Format"]["Y"] = "number";
@@ -72,7 +73,7 @@ class pData
                 $buffer = fgets($handle, 4096);
                 $buffer = str_replace(chr(10), "", $buffer);
                 $buffer = str_replace(chr(13), "", $buffer);
-                $Values = split($Delimiter, $buffer);
+                $Values = explode($Delimiter, $buffer);
 
                 if ($buffer != "") {
                     if ($HasHeader == TRUE && $HeaderParsed == FALSE) {
