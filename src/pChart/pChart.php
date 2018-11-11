@@ -489,16 +489,19 @@ class pChart
 
             $Value = $this->VMin + ($i - 1) * (($this->VMax - $this->VMin) / $Divisions);
             $Value = round($Value * pow(10, $Decimals)) / pow(10, $Decimals);
-            if ($DataDescription["Format"]["Y"] == "number")
-                $Value = $Value . $DataDescription["Unit"]["Y"];
-            if ($DataDescription["Format"]["Y"] == "time")
-                $Value = $this->ToTime($Value);
-            if ($DataDescription["Format"]["Y"] == "date")
-                $Value = $this->ToDate($Value);
-            if ($DataDescription["Format"]["Y"] == "metric")
-                $Value = $this->ToMetric($Value);
-            if ($DataDescription["Format"]["Y"] == "currency")
-                $Value = $this->ToCurrency($Value);
+            if(isset($DataDescription["Format"]["Y"])){
+	            if ($DataDescription["Format"]["Y"] == "number")
+		            $Value = $Value . $DataDescription["Unit"]["Y"];
+	            if ($DataDescription["Format"]["Y"] == "time")
+		            $Value = $this->ToTime($Value);
+	            if ($DataDescription["Format"]["Y"] == "date")
+		            $Value = $this->ToDate($Value);
+	            if ($DataDescription["Format"]["Y"] == "metric")
+		            $Value = $this->ToMetric($Value);
+	            if ($DataDescription["Format"]["Y"] == "currency")
+		            $Value = $this->ToCurrency($Value);
+            }
+
 
             $Position = imageftbbox($this->FontSize, 0, $this->FontName, $Value);
             $TextWidth = $Position[2] - $Position[0];
@@ -538,16 +541,18 @@ class pChart
             if ($ID % $SkipLabels == 0) {
                 $this->drawLine(floor($XPos), $this->GArea_Y2, floor($XPos), $this->GArea_Y2 + 5, $R, $G, $B);
                 $Value = $Data[$Key][$DataDescription["Position"]];
-                if ($DataDescription["Format"]["X"] == "number")
-                    $Value = $Value . $DataDescription["Unit"]["X"];
-                if ($DataDescription["Format"]["X"] == "time")
-                    $Value = $this->ToTime($Value);
-                if ($DataDescription["Format"]["X"] == "date")
-                    $Value = $this->ToDate($Value);
-                if ($DataDescription["Format"]["X"] == "metric")
-                    $Value = $this->ToMetric($Value);
-                if ($DataDescription["Format"]["X"] == "currency")
-                    $Value = $this->ToCurrency($Value);
+                if(isset($DataDescription["Format"]["X"])){
+                	if ($DataDescription["Format"]["X"] == "number")
+	                $Value = $Value . $DataDescription["Unit"]["X"];
+	                if ($DataDescription["Format"]["X"] == "time")
+		                $Value = $this->ToTime($Value);
+	                if ($DataDescription["Format"]["X"] == "date")
+		                $Value = $this->ToDate($Value);
+	                if ($DataDescription["Format"]["X"] == "metric")
+		                $Value = $this->ToMetric($Value);
+	                if ($DataDescription["Format"]["X"] == "currency")
+		                $Value = $this->ToCurrency($Value);
+                }
 
                 $Position = imageftbbox($this->FontSize, $Angle, $this->FontName, $Value);
                 $TextWidth = abs($Position[2]) + abs($Position[0]);
