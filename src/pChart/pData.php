@@ -73,11 +73,13 @@ class pData
             $Value = $Value[0];
 
         $ID = 0;
-        for ($i = 0; $i <= count($this->Data); $i++) {
-            if (isset($this->Data[$i][$Serie])) {
-                $ID = $i + 1;
-            }
-        }
+        if ( is_array( $this->Data ) ) {
+			for ( $i = 0; $i <= count( $this->Data ); $i ++ ) {
+				if ( isset( $this->Data[ $i ][ $Serie ] ) ) {
+					$ID = $i + 1;
+				}
+			}
+		}
 
         if (count($Value) == 1) {
             $this->Data[$ID][$Serie] = $Value;
