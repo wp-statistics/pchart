@@ -5,25 +5,25 @@ namespace pChart;
 
 class pData
 {
-    var $Data;
-    var $DataDescription;
+    public $Data;
+    public $DataDescription;
 
-    function pData()
+    public function __construct()
     {
-        $this->Data = array();
-        $this->DataDescription = array();
-        $this->DataDescription["Position"] = "Name";
+        $this->Data                           = array();
+        $this->DataDescription                = array();
+        $this->DataDescription["Position"]    = "Name";
         $this->DataDescription["Format"]["X"] = "number";
         $this->DataDescription["Format"]["Y"] = "number";
-        $this->DataDescription["Unit"]["X"] = NULL;
-        $this->DataDescription["Unit"]["Y"] = NULL;
+        $this->DataDescription["Unit"]["X"]   = null;
+        $this->DataDescription["Unit"]["Y"]   = null;
     }
 
-    function ImportFromCSV($FileName, $Delimiter = ",", $DataColumns = -1, $HasHeader = FALSE, $DataName = -1)
+    function ImportFromCSV($FileName, $Delimiter = ",", $DataColumns = -1, $HasHeader = false, $DataName = -1)
     {
         $handle = @fopen($FileName, "r");
         if ($handle) {
-            $HeaderParsed = FALSE;
+            $HeaderParsed = false;
             while (!feof($handle)) {
                 $buffer = fgets($handle, 4096);
                 $buffer = str_replace(chr(10), "", $buffer);
@@ -31,7 +31,7 @@ class pData
                 $Values = explode($Delimiter, $buffer);
 
                 if ($buffer != "") {
-                    if ($HasHeader == TRUE && $HeaderParsed == FALSE) {
+                    if ($HasHeader == true && $HeaderParsed == false) {
                         if ($DataColumns == -1) {
                             $ID = 1;
                             foreach ($Values as $key => $Value) {
@@ -41,10 +41,11 @@ class pData
                         } else {
                             $SerieName = "";
 
-                            foreach ($DataColumns as $key => $Value)
+                            foreach ($DataColumns as $key => $Value) {
                                 $this->SetSerieName($Values[$Value], "Serie" . $Value);
+                            }
                         }
-                        $HeaderParsed = TRUE;
+                        $HeaderParsed = true;
                     } else {
                         if ($DataColumns == -1) {
                             $ID = 1;
@@ -54,11 +55,13 @@ class pData
                             }
                         } else {
                             $SerieName = "";
-                            if ($DataName != -1)
+                            if ($DataName != -1) {
                                 $SerieName = $Values[$DataName];
+                            }
 
-                            foreach ($DataColumns as $key => $Value)
+                            foreach ($DataColumns as $key => $Value) {
                                 $this->AddPoint($Values[$Value], "Serie" . $Value, $SerieName);
+                            }
                         }
                     }
                 }
@@ -69,29 +72,32 @@ class pData
 
     function AddPoint($Value, $Serie = "Serie1", $Description = "")
     {
-        if (is_array($Value) && count($Value) == 1)
+        if (is_array($Value) && count($Value) == 1) {
             $Value = $Value[0];
+        }
 
         $ID = 0;
-        if ( is_array( $this->Data ) ) {
-			for ( $i = 0; $i <= count( $this->Data ); $i ++ ) {
-				if ( isset( $this->Data[ $i ][ $Serie ] ) ) {
-					$ID = $i + 1;
-				}
-			}
-		}
+        if (is_array($this->Data)) {
+            for ($i = 0; $i <= count($this->Data); $i++) {
+                if (isset($this->Data[$i][$Serie])) {
+                    $ID = $i + 1;
+                }
+            }
+        }
 
         if (count($Value) == 1) {
             $this->Data[$ID][$Serie] = $Value;
-            if ($Description != "")
+            if ($Description != "") {
                 $this->Data[$ID]["Name"] = $Description;
-            elseif (!isset($this->Data[$ID]["Name"]))
+            } elseif (!isset($this->Data[$ID]["Name"])) {
                 $this->Data[$ID]["Name"] = $ID;
+            }
         } else {
             foreach ($Value as $key => $Val) {
                 $this->Data[$ID][$Serie] = $Val;
-                if (!isset($this->Data[$ID]["Name"]))
+                if (!isset($this->Data[$ID]["Name"])) {
                     $this->Data[$ID]["Name"] = $ID;
+                }
                 $ID++;
             }
         }
@@ -102,14 +108,16 @@ class pData
         if (!isset($this->DataDescription["Values"])) {
             $this->DataDescription["Values"][] = $SerieName;
         } else {
-            $Found = FALSE;
-            foreach ($this->DataDescription["Values"] as $key => $Value)
+            $Found = false;
+            foreach ($this->DataDescription["Values"] as $key => $Value) {
                 if ($Value == $SerieName) {
-                    $Found = TRUE;
+                    $Found = true;
                 }
+            }
 
-            if (!$Found)
+            if (!$Found) {
                 $this->DataDescription["Values"][] = $SerieName;
+            }
         }
     }
 
@@ -119,21 +127,24 @@ class pData
 
         if (isset($this->Data[0])) {
             foreach ($this->Data[0] as $Key => $Value) {
-                if ($Key != "Name")
+                if ($Key != "Name") {
                     $this->DataDescription["Values"][] = $Key;
+                }
             }
         }
     }
 
     function RemoveSerie($SerieName = "Serie1")
     {
-        if (!isset($this->DataDescription["Values"]))
+        if (!isset($this->DataDescription["Values"])) {
             return (0);
+        }
 
-        $Found = FALSE;
+        $Found = false;
         foreach ($this->DataDescription["Values"] as $key => $Value) {
-            if ($Value == $SerieName)
+            if ($Value == $SerieName) {
                 unset($this->DataDescription["Values"][$key]);
+            }
         }
     }
 
@@ -184,14 +195,16 @@ class pData
 
     function removeSerieName($SerieName)
     {
-        if (isset($this->DataDescription["Description"][$SerieName]))
+        if (isset($this->DataDescription["Description"][$SerieName])) {
             unset($this->DataDescription["Description"][$SerieName]);
+        }
     }
 
     function removeAllSeries()
     {
-        foreach ($this->DataDescription["Values"] as $Key => $Value)
+        foreach ($this->DataDescription["Values"] as $Key => $Value) {
             unset($this->DataDescription["Values"][$Key]);
+        }
     }
 
     function GetData()

@@ -1,14 +1,16 @@
 <?php
+
 namespace pChart;
 
 /* pCache class definition */
+
 class pCache
 {
-    var $HashKey = "";
-    var $CacheFolder = "Cache/";
 
-    /* Create the pCache object */
-    function pCache($CacheFolder = "Cache/")
+    public $HashKey = "";
+    public $CacheFolder = "Cache/";
+
+    public function __construct($CacheFolder = "Cache/")
     {
         $this->CacheFolder = $CacheFolder;
     }
@@ -40,7 +42,7 @@ class pCache
     /* This function is making a copy of drawn chart in the cache folder */
     function WriteToCache($ID, $Data, $Picture)
     {
-        $Hash = $this->GetHash($ID, $Data);
+        $Hash     = $this->GetHash($ID, $Data);
         $FileName = $this->CacheFolder . $Hash;
 
         imagepng($Picture->Picture, $FileName);
@@ -49,7 +51,7 @@ class pCache
     /* This function is removing any cached copy of this chart */
     function DeleteFromCache($ID, $Data)
     {
-        $Hash = $this->GetHash($ID, $Data);
+        $Hash     = $this->GetHash($ID, $Data);
         $FileName = $this->CacheFolder . $Hash;
 
         if (file_exists($FileName))
