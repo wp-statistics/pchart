@@ -1,10 +1,10 @@
 # pChart
+
 A PHP Class to build Charts
 
-pChart is a PHP class oriented framework designed to create aliased charts. Most of todays chart libraries have a cost, our project is intended to be free. Data can be retrieved from SQL queries, CSV files, or manually provided. This project is still under development and new features or fix are made every week. 
+pChart is a PHP class oriented framework designed to create aliased charts. Most of todays chart libraries have a cost, our project is intended to be free. Data can be retrieved from SQL queries, CSV files, or manually provided. This project is still under development and new features or fix are made every week.
 
-Since the primary author of [pChart](http://www.pchart.net/) has not updated it since January 19th, 2014, we decided to update the library due to some out-of-date functions.
-
+As the primary author of [pChart](http://www.pchart.net/) has not updated it since January 19th, 2014, we decided to update the library due to some out-of-date functions.
 
 [![Build Status](https://travis-ci.org/wp-statistics/pchart.svg?branch=master)](https://travis-ci.org/wp-statistics/pchart)
 [![Minimum PHP Version](http://img.shields.io/badge/php-%3E%3D%205.4-8892BF.svg)](https://php.net/)
@@ -32,6 +32,7 @@ Usage
 -----
 
 Let's add into config in your main-local config file before return[]
+
 ````php
 <?php
 require_once __DIR__ . '/../vendor/autoload.php'; // Autoload files using Composer autoload
@@ -66,10 +67,9 @@ $Test->drawTitle(60, 22, "My pretty graph", 50, 50, 50, 585);
 $Test->Render("Naked.png");
 ````
 
-
 Screenshots
 ------------
-The pChart charting library is providing many ways to reprensent a single or multiple series of data. We'll try to add screenshots everytime an interesting functionnality is added to the pChart library. 
+The pChart charting library is providing many ways to reprensent a single or multiple series of data. We'll try to add screenshots everytime an interesting functionnality is added to the pChart library.
 ![alt text](https://raw.githubusercontent.com/wp-statistics/pchart/master/src/Screenshots/example10.png "Logo Title Text 1")
 ![alt text](https://raw.githubusercontent.com/wp-statistics/pchart/master/src/Screenshots/example12.png "Logo Title Text 1")
 ![alt text](https://raw.githubusercontent.com/wp-statistics/pchart/master/src/Screenshots/example13.png "Logo Title Text 1")
